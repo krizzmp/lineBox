@@ -1,3 +1,4 @@
+"use strict";
 (function(){
     var app = angular.module('myApp');
     app.directive("contenteditable", function() {
@@ -6,9 +7,9 @@
             require: "?ngModel",
             link: function(scope, element, attrs, ngModel) {
                 if(ngModel) {
-                    function read() {
+                    var read = function(){
                         ngModel.$setViewValue(element.html());
-                    }
+                    };
 
                     ngModel.$render = function () {
                         element.html(ngModel.$viewValue || "");
