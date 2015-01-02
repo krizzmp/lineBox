@@ -82,7 +82,7 @@
                 });
             });
             element.on("drop1",function(e,element1){
-                ctrl.addLine(element1,scope.lb)
+                ctrl.addLine(element1,scope.lb);
             });
             element.on("dblclick",function(e){
                 e.stopPropagation();
@@ -92,7 +92,7 @@
             });
             element.on("click",function(e){
                 e.stopPropagation();
-            })
+            });
         }
 
         return {
