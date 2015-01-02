@@ -1,0 +1,32 @@
+@import "lb-/lb.scss";
+@import "tabs.scss";
+
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; }
+
+
+header{
+  display: flex;
+  flex-direction: row;
+  height:48px;
+  align-items: center;
+  background: linear-gradient(to bottom, #E0E0E0,#C2C2C2);
+  .left{
+    flex: 1;
+  }
+  .left, .right{
+    padding: 15px;
+    display: block;
+  }
+}
+
+
+
+
+

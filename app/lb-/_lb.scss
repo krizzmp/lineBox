@@ -1,0 +1,29 @@
+lb-canvas {
+  position: relative;
+  overflow: scroll;
+  flex: 1;
+  -webkit-user-select: none; }
+
+.box {
+  border: 1px solid #000000;
+  background: #FFF;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 3;
+}
+.dropping {
+  z-index: 99999; }
+
+.line {
+  height: 2px;
+  background: #333;
+  position: absolute;
+  transform-origin: 0% 50%;
+  z-index: 0}
+
+p {
+  white-space: nowrap;
+  display: inline;
+  outline: none; }
