@@ -24,7 +24,6 @@
             tab.selected = true;
         };
         this.closeTab = function (tab) {
-            console.log(this);
             var i = tabs.indexOf(tab);
             if (i != -1) {
                 tabs.splice(i, 1);
@@ -40,24 +39,20 @@
             var el = event.target;
             $(el).focus();
             $(document).one('click', function (e) {
-                console.log("deselct");
                 tab.editing = false;
                 window.getSelection().removeAllRanges();
                 $scope.$apply();
             });
-            selectElementContents(el);
-            function selectElementContents(el) {
-
+            var selectElementContents = function(el) {
                 var range = document.createRange();
                 range.selectNodeContents(el);
                 var sel = window.getSelection();
                 sel.removeAllRanges();
                 sel.addRange(range);
             }
-
+            selectElementContents(el);
         };
     }]);
-
 })();
 
 
