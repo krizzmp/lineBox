@@ -1,3 +1,7 @@
+/* global $ */
+/* global document */
+/* global window */
+/* global console */
 "use strict";
 (function(){
     var app = angular.module('myApp');
