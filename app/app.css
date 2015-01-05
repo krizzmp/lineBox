@@ -12,6 +12,8 @@ lb-canvas {
   border-radius: 4px;
   position: absolute;
   z-index: 3; }
+  .box.sel {
+    border: 1px solid #2b7499; }
 
 .dropping {
   z-index: 99999; }

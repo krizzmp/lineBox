@@ -43,16 +43,14 @@
                 window.getSelection().removeAllRanges();
                 $scope.$apply();
             });
-            var selectElementContents = function(el) {
+            var selectElementContents = function (el) {
                 var range = document.createRange();
                 range.selectNodeContents(el);
                 var sel = window.getSelection();
                 sel.removeAllRanges();
                 sel.addRange(range);
-            }
+            };
             selectElementContents(el);
         };
     }]);
 })();
-
-

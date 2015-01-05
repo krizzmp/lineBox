@@ -17,6 +17,7 @@
                     return element.outerHeight();
                 };
                 scope.lb.editing =  true;
+                scope.lb.selected =  true;
                 timer(function(){
                     scope.lb.x =  scope.lb.x - scope.lb.w()/2;
                     scope.lb.y =  scope.lb.y - scope.lb.h()/2;
@@ -70,6 +71,20 @@
                 });
                 element.on("click",function(e){
                     e.stopPropagation();
+                    if(!scope.lb.editing){
+                        ctrl.deselectAll();
+                        scope.lb.selected =  true;
+                        scope.$apply();
+                        console.log("bind Event");
+                        $(document).off("keyup");
+                        $(document).one("keyup",function (e) {
+                            console.log("keyup", scope.lb);
+                            if(scope.lb.selected && !scope.lb.editing){
+                                console.log("removing");
+                                ctrl.remove(scope.lb);
+                            }
+                        })
+                    }
                 });
             },
             scope: {lb:"="},
