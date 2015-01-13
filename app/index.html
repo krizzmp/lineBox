@@ -1,53 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="app.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My AngularJS App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="app.css">
 </head>
-<body>
+<body ng-controller="tabController as tabCtrl">
 
-  <header>
-    <div class="left">
-      <p class="logo"><strong>line</strong>box</p>
-    </div>
-    <div class="right">about</div>
-  </header>
+<button ng-click="tabCtrl.undo()">undo</button>
+<lb-canvas lb="tabCtrl.tabs[0].content"></lb-canvas>
 
-
-  <div class="tab-container" ng-controller="tabController as tabCtrl">
-    <div class="tab-strip">
-      <div class="tab" ng-repeat="tab in tabCtrl.tabs" ng-class="{active:tab.selected}"
-           ng-click="tabCtrl.selectTab(tab)" ng-dblclick="tabCtrl.editTab(tab,$event)">
-        <div class="name" contenteditable="{{tab.editing}}" ng-model="tab.name">
-          {{tab.name}}
-        </div>
-        <a class="close-button" ng-click="tabCtrl.closeTab(tab)">x</a>
-      </div>
-      <a class="add-button" ng-click="tabCtrl.addTab()">+</a>
-    </div>
-    <div class="content" ng-repeat="tab in tabCtrl.tabs" ng-show="tab.selected">
-      <lb-canvas lb="tab.content"></lb-canvas>
-    </div>
-  </div>
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-  <script src="bower_components/angular/angular.js"></script>
-  <!-- Firebase -->
-  <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
-  <!-- AngularFire -->
-  <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
-  <script src="jquery.overlaps.js"></script>
-  <script src="app.js"></script>
-  <script src="lb-/canvas.js"></script>
-  <script src="lb-/line.js"></script>
-  <script src="lb-/box.js"></script>
-  <script src="lb-/contenteditable.js"></script>
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+<script src="bower_components/angular/angular.js"></script>
+<!-- Firebase -->
+<!--<script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+<!-- AngularFire
+<script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>-->
+<script src="jquery.overlaps.js"></script>
+<script src="app.js"></script>
+<script src="lb-/canvas.js"></script>
+<script src="lb-/line.js"></script>
+<script src="lb-/box.js"></script>
+<script src="lb-/contenteditable.js"></script>
 </body>
 </html>

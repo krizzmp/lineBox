@@ -5,7 +5,10 @@
 "use strict";
 (function () {
     var app = angular.module('myApp', []);
-    app.controller('tabController', ['$scope', function ($scope) {
+    app.controller('tabController', ['$scope','History', function ($scope,history) {
+        this.undo = function () {
+            history.undo();
+        };
         var tabs = this.tabs = [{
             name: "tab1",
             selected: true,
@@ -43,14 +46,49 @@
                 window.getSelection().removeAllRanges();
                 $scope.$apply();
             });
-            var selectElementContents = function (el) {
+
+            selectElementContents(el);
+
+            function selectElementContents(el) {
                 var range = document.createRange();
                 range.selectNodeContents(el);
                 var sel = window.getSelection();
                 sel.removeAllRanges();
                 sel.addRange(range);
-            };
-            selectElementContents(el);
+            }
         };
     }]);
-})();
+    app.factory('History', function ($rootScope) {
+
+        return {
+            undoList: [],
+            move: function (lb, oldX,oldY,newX,newY) {
+                var command = {
+                    execute: function () {
+                        console.log("sets new value");
+                        lb.x = newX;
+                        lb.y = newY;
+                    },
+                    undo: function () {
+                        console.log("undoes");
+                        lb.x = oldX;
+                        lb.y = oldY;
+                    }
+                };
+                this.undoList.push(command);
+                command.execute();
+            },
+            doCmd: function (command) {
+                this.undoList.push(command);
+                command.execute();
+            },
+            undo: function () {
+                var command = this.undoList.pop();
+                if(command){
+                    command.undo();
+                }
+            }
+        }
+    });
+})
+();

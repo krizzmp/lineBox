@@ -17,8 +17,10 @@
                     ngModel.$render = function () {
                         element.html(ngModel.$viewValue || "");
                     };
-                    element.bind("blur keyup change", function () {
+                    element.bind("blur keyup change", function (e) {
+                        e.stopPropagation();
                         scope.$apply(read);
+                        
                     });
                 }
             }
