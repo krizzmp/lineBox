@@ -84,7 +84,7 @@
                         History.doCmd(cmd);
                     }
                     $scope.$apply();
-                })
+                });
 
             },
             scope: {lb: "="},

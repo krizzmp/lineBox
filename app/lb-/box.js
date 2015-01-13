@@ -89,7 +89,7 @@
 
                 function select() {
                     console.log(ctrl);
-                    ctrl.select(box)
+                    ctrl.select(box);
                 }
 
                 function selectElementContents(el) {
