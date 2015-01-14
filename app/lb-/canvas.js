@@ -45,7 +45,7 @@
                     $scope.lb.selection = [];
                 };
                 vm.isSelected = function (item) {
-                    return $scope.lb.selection.indexOf(item) != -1;
+                    return $scope.lb.selection.indexOf(item) !== -1;
                 };
                 $($element).on('dblclick', function (e) {
                     e.preventDefault();
@@ -64,7 +64,7 @@
                 });
                 $(document).on("keyup",function (e) {
                     //console.log("keyup", scope.lb, e);
-                    if(e.which==46){
+                    if(e.which===46){
                         var sel = $scope.lb.selection;
                         var cmd = {
                             execute: function () {

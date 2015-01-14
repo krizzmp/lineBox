@@ -32,63 +32,83 @@
                 }
 
                 function initEvents() {
-                    element.on('dragstart', function (e) {
-                        e.preventDefault();
-                        element.addClass("dropping");
-                        var oldX = e.originalEvent.screenX;
-                        var oldY = e.originalEvent.screenY;
-                        var old_position = element.position();
-                        var transX, transY;
-                        $(document).on("mousemove", function (e) {
-                            var newX = e.screenX;
-                            transX = newX - oldX;
-                            var newY = e.screenY;
-                            transY = newY - oldY;
-                            box.x = old_position.left + transX;
-                            box.y = old_position.top + transY;
-                            scope.$apply();
-                        });
-                        $(document).on("mouseup", function (e) {
-                            element.addClass("dropping");
-                            var overlaps = element.overlaps(".box:not(.dropping)");
-                            if (overlaps.length) {
-                                box.x = old_position.left;
-                                box.y = old_position.top;
-                                scope.$apply();
-                                overlaps.trigger("drop1", box);
-                            } else {
-                                history.move(box, old_position.left, old_position.top,
-                                    old_position.left + transX, old_position.top + transY);
-                                scope.$apply();
-                            }
-                            $(document).off("mouseup");
-                            $(document).off("mousemove");
-                            element.removeClass("dropping");
-                        });
-                    });
-                    element.on("drop1", function (e, element1) {
-                        ctrl.addLine(element1, box);
-                    });
-                    element.on("dblclick", function (e) {
-                        e.stopPropagation();
-                        box.editing = true;
+                    element.on('dragstart', onDragStart);
+                    element.on("drop1", onDrop);
+                    element.on("dblclick", onDblClick);
+                    element.on("click", onClick);
+                }
+
+                function onDragStart(e) {
+                    e.preventDefault();
+                    //element.addClass("dropping");
+                    var oldX = e.originalEvent.screenX;
+                    var oldY = e.originalEvent.screenY;
+                    var oldPosition = element.position();
+                    var transX, transY;
+                    $(document).on("mousemove", onDragMove);
+                    $(document).on("mouseup", onDragEnd);
+
+                    function onDragMove(e) {
+                        var newX = e.screenX;
+                        transX = newX - oldX;
+                        var newY = e.screenY;
+                        transY = newY - oldY;
+                        box.x = oldPosition.left + transX;
+                        box.y = oldPosition.top + transY;
                         scope.$apply();
-                        selectElementContents(element.find("p")[0]);
-                    });
-                    element.on("click", function (e) {
-                        e.stopPropagation();
-                        if (!box.editing) {
-                            if (!e.shiftKey)
-                                ctrl.deselectAll();
-                            select();
+                    }
+
+                    function onDragEnd(e) {
+                        element.addClass("dropping");
+                        var overlaps = element.overlaps(".box:not(.dropping)");
+                        if (overlaps.length) {
+                            console.log("hi");
+                            createLink();
+                        } else {
+                            moveBox();
+                        }
+                        $(document).off("mouseup");
+                        $(document).off("mousemove");
+                        element.removeClass("dropping");
+
+                        function createLink() {
+                            box.x = oldPosition.left;
+                            box.y = oldPosition.top;
+                            scope.$apply();
+                            overlaps.trigger("drop1", box);
+                        }
+
+                        function moveBox() {
+                            history.move(box, oldPosition.left, oldPosition.top,
+                                oldPosition.left + transX, oldPosition.top + transY);
                             scope.$apply();
                         }
-                        console.log(ctrl);
-                    });
+                    }
+                }
+
+                function onDrop(e, element1) {
+                    ctrl.addLine(element1, box);
+                }
+
+                function onDblClick(e) {
+                    e.stopPropagation();
+                    box.editing = true;
+                    scope.$apply();
+                    selectElementContents(element.find("p")[0]);
+                }
+
+                function onClick(e) {
+                    e.stopPropagation();
+                    if (!box.editing) {
+                        if (!e.shiftKey) {
+                            ctrl.deselectAll();
+                        }
+                        select();
+                        scope.$apply();
+                    }
                 }
 
                 function select() {
-                    console.log(ctrl);
                     ctrl.select(box);
                 }
 
