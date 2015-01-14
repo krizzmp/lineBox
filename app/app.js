@@ -36,7 +36,7 @@
         self.addTab = function () {
             var newTab = { name: "new tab", selected: false, editing: false, content: { boxes: [], lines: [] } };
             self.tabs.push(newTab);
-            selectTab(newTab);
+            self.selectTab(newTab);
         };
         self.editTab = function (tab, event) {
             tab.editing = true;
